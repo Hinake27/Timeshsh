@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .button-img {
+            width: 500px;
+            height: 500px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #result {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .red-text {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="images/bot.png" alt="BOT" class="button-img" onclick="toggleDateTime()">
+    <div id="message" class="red-text"></div>
+    <div id="result"></div>
+    <img src="images/smill.png" id="smill" alt="smill" style="display: none;">
+
+    <script>
+        let timer;
+        
+        function updateDateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? '下午' : '上午';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            
+            const dateStr = now.getFullYear() + '年' + 
+                          (now.getMonth() + 1).toString().padStart(2, '0') + '月' + 
+                          now.getDate().toString().padStart(2, '0') + '日 ' +
+                          ampm + ' ' +
+                          hours.toString().padStart(2, '0') + ':' +
+                          now.getMinutes().toString().padStart(2, '0') + ':' +
+                          now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('result').textContent = dateStr;
+        }
+
+        function toggleDateTime() {
+            const resultDiv = document.getElementById('result');
+            const messageDiv = document.getElementById('message');
+            const img = document.getElementById('smill');
+            
+            if (!timer) {
+                timer = setInterval(updateDateTime, 1000);
+                updateDateTime();
+                messageDiv.textContent = '謝謝你的點擊目前時間是';
+                img.style.display = 'block';
+            } else {
+                clearInterval(timer);
+                timer = null;
+                resultDiv.textContent = '';
+                messageDiv.textContent = '';
+                img.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
