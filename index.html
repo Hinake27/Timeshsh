@@ -26,11 +26,13 @@
     </style>
 </head>
 <body>
+    <!-- 加入音訊元素 -->
+    <audio id="myAudio" src="S.mp3"></audio>
+    
     <img src="images/bot.png" alt="BOT" class="button-img" onclick="toggleDateTime()">
     <div id="message" class="red-text"></div>
     <div id="result"></div>
     <img src="images/smill.png" id="smill" alt="smill" style="display: none;">
-
     <script>
         let timer;
         
@@ -50,8 +52,11 @@
                           now.getSeconds().toString().padStart(2, '0');
             document.getElementById('result').textContent = dateStr;
         }
-
+        
         function toggleDateTime() {
+            // 播放音效
+            document.getElementById('myAudio').play();
+            
             const resultDiv = document.getElementById('result');
             const messageDiv = document.getElementById('message');
             const img = document.getElementById('smill');
